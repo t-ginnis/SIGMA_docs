@@ -11,16 +11,17 @@ Before using SIGMA2, it is necessary to install a python package manager such as
 Installing `conda`
 ^^^^^^^^^^^^^
 This page describes one method for installing and using `conda`, which will allow for SIGMA to be installed.
-1. Download the appropriate *miniconda* installer for your machine from `here <https://www.anaconda.com/download/success>'_.
-2. Run the installer - the default options should provide a suitable install for using SIGMA
-3. Once the installer has finished, open the conda Command Line Interphase (CLI)
-   a. On windows, this is the Anaconda Prompt application, which should be in the start menu
-   b. On MacOS / Linux, this is the standard Terminal application
-4. The terminal should look like (depending on your machine)
+
+#. 1. Download the appropriate *miniconda* installer for your machine from `here <https://www.anaconda.com/download/success>'_.
+#. 2. Run the installer - the default options should provide a suitable install for using SIGMA
+#. 3. Once the installer has finished, open the conda Command Line Interphase (CLI)
+   #. a. On windows, this is the Anaconda Prompt application, which should be in the start menu
+   #. b. On MacOS / Linux, this is the standard Terminal application
+#. 4. The terminal should look like (depending on your machine)
    """
    `(base) USERNAME@machine : `
    """
-5. Run the following command to verify that `conda` is installed correctly :
+#. 5. Run the following command to verify that `conda` is installed correctly :
    """
    `conda --version`
    """
