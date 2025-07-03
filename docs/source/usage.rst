@@ -1,6 +1,18 @@
 Usage
 =====
 
+.. _requirements:
+
+Requirements
+------------
+
+Installin Conda
+^^^^^^^^^^^^^^^
+Before using SIGMA2, it is necessary to install a python package manager such as `conda <https://www.anaconda.com/docs/main>`_
+
+
+
+
 .. _installation:
 
 Installation
