@@ -8,7 +8,7 @@ Requirements
 Before using SIGMA2, it is necessary to install a python package manager such as `conda <https://www.anaconda.com/docs/main>`_.
 
 
-Installing `conda`
+Installing conda
 ^^^^^^^^^^^^^
 This page describes one method for installing and using `conda`, which will allow for SIGMA to be installed.
 
@@ -41,8 +41,10 @@ This page describes one method for installing and using `conda`, which will allo
       conda 25.3.1
    
 
+.. _setup_env
 
-
+Setting up a conda environment
+------------
 
 
 .. _installation:
@@ -50,29 +52,7 @@ This page describes one method for installing and using `conda`, which will allo
 Installing SIGMA
 ------------
 
-To use Lumache, first install it using pip:
+To download the latest verision of SIGMA - download it from the `GitHub <https://github.com/NanoPaleoMag/SIGMA2.git>`_.
 
-.. code-block:: console
 
-   (.venv) $ pip install lumache
-
-Creating recipes
-----------------
-
-To retrieve a list of random ingredients,
-you can use the ``lumache.get_random_ingredients()`` function:
-
-.. autofunction:: lumache.get_random_ingredients
-
-The ``kind`` parameter should be either ``"meat"``, ``"fish"``,
-or ``"veggies"``. Otherwise, :py:func:`lumache.get_random_ingredients`
-will raise an exception.
-
-.. autoexception:: lumache.InvalidKindError
-
-For example:
-
->>> import lumache
->>> lumache.get_random_ingredients()
-['shells', 'gorgonzola', 'parsley']
 
