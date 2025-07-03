@@ -9,7 +9,6 @@ Before using SIGMA2, it is necessary to install a python package manager such as
 
 
 Installing `conda`
-^^^^^^^^^^^^^^^
 This page describes one method for installing and using `conda`, which will allow for SIGMA to be installed.
 1. Download the appropriate *miniconda* installer for your machine from `here <https://www.anaconda.com/download/success>'_.
 2. Run the installer - the default options should provide a suitable install for using SIGMA
