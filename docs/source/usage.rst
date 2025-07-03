@@ -15,8 +15,8 @@ This page describes one method for installing and using `conda`, which will allo
 #. Download the appropriate *miniconda* installer for your machine from `here <https://www.anaconda.com/download/success>'_.
 #. Run the installer - the default options should provide a suitable install for using SIGMA
 #. Once the installer has finished, open the conda Command Line Interphase (CLI)
-   *. On windows, this is the Anaconda Prompt application, which should be in the start menu
-   *. b. On MacOS / Linux, this is the standard Terminal application
+   * On windows, this is the Anaconda Prompt application, which should be in the start menu
+   * b. On MacOS / Linux, this is the standard Terminal application
 #. The terminal should look like (depending on your machine)
    """
    `(base) USERNAME@machine : `
