@@ -16,9 +16,9 @@ This page describes one method for installing and using `conda`, which will allo
 #. Run the installer - the default options should provide a suitable install for using SIGMA.
 #. Once the installer has finished, open the conda Command Line Interface (CLI)
 
-    * On windows, this is the Anaconda Prompt application, which should be in the start menu
+   * On windows, this is the Anaconda Prompt application, which should be in the start menu
 
-    * On MacOS / Linux, this is the standard Terminal application
+   * On MacOS / Linux, this is the standard Terminal application
 
 #. The terminal should look like (depending on your machine)
 
