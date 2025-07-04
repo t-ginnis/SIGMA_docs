@@ -20,14 +20,13 @@ In general, the philosopy behind the SIGMA workflow is:
 Opening the Notebook
 ^^^^^^^^^^^^^^^^^^^^
 
-#. Start jupyter lab by running the following in the ``sigma2`` environment in the ``conda`` terminal in the ``SIGMA2`` folder.
+Start jupyter lab by running the following in the ``sigma2`` environment in the ``conda`` terminal in the ``SIGMA2`` folder.
 
 .. code-block:: bash
 
    jupyter lab
 
-A browser window should open, with jupyter lab running
 
-#. Navigate to the ``Interactive_SEM_tutorial.ipynb`` notebook in the tutorials folder, and open it. 
+A browser window should open, with jupyter lab running. Navigate to the ``Interactive_SEM_tutorial.ipynb`` notebook in the tutorials folder, and open it. 
 
 
