@@ -57,5 +57,5 @@ Running this cell will:
 
 
 .. note::
-   SIGMA2 is still in development, so for the time being it is imported using relative imports. When you create your own notebooks for analysis, you will need to ensure the relative imports "point" to the correct place - see :doc:'personal' section for more information about using SIGMA for your own data analysis at :ref:`personal_analysis`.
+   SIGMA2 is still in development, so for the time being it is imported using relative imports. When you create your own notebooks for analysis, you will need to ensure the relative imports "point" to the correct place - see :doc:`personal` section for more information about using SIGMA for your own data analysis.
 
