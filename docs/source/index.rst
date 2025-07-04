@@ -15,5 +15,5 @@ Contents
 
 .. toctree::
 
-   usage
+   getting_started
    tutorials
