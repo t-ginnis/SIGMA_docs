@@ -130,7 +130,7 @@ The install can be verified by running the first cells of a tutorial notebook.
 
 #. Start a jupyter lab with
 
-.. code-block bash
+.. code-block:: bash
 
    jupyter lab
 
