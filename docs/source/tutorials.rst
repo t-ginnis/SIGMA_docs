@@ -55,5 +55,6 @@ Running this cell will:
 * Import the ``umap`` package which is needed to perform latent space projections
 * Import the `sys` package -this is needed to perform "relative imports" of SIGMA2
 
-      Note: SIGMA2 is still in development, so for the time being it is imported using relative imports. When you create your own notebooks for analysis, you will need to ensure the relative imports "point" to the correct place - see :doc:'personal' section for more information about using SIGMA for your own data analysis at :ref:`personal_analysis`.
+.. note::
+   SIGMA2 is still in development, so for the time being it is imported using relative imports. When you create your own notebooks for analysis, you will need to ensure the relative imports "point" to the correct place - see :doc:'personal' section for more information about using SIGMA for your own data analysis at :ref:`personal_analysis`.
 
