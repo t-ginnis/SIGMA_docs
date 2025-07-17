@@ -34,7 +34,7 @@ Running Cells
 
 A jupyter notebook is made up of cells. An example is shown here.
 
-.. image:: cells.png
+.. image:: jupyter_example.png
   :width: 400
   :alt: Example of cells in jupyter
 
