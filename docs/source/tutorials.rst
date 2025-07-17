@@ -44,7 +44,7 @@ A jupyter notebook will typically contain
 * Code cells. These contain code, which will be ran by the notebook
 * Outputs. These appe
 
-To run a cell, select it with your mouse and press `Shift`+`Enter`. This will run the cell and advance to the next cell.
+To run a cell, select it with your mouse and press ``Shift`` + ``Enter``. This will run the cell and advance to the next cell.
 
 
 Useful Shortcuts
