@@ -44,7 +44,7 @@ A jupyter notebook will typically contain
 * Code cells. These contain code, which will be ran by the notebook
 * Outputs. These appe
 
-To run a cell, select it with your mouse and press <kbd>Shift</kbd>+<kbd>Enter</kbd>. This will run the cell and advance to the next cell.
+To run a cell, select it with your mouse and press ``Shift``+``Enter``. This will run the cell and advance to the next cell.
 
 
 Useful Shortcuts
@@ -52,7 +52,7 @@ Useful Shortcuts
 
 Some useful shortcuts for running and using cells in jupyter are:
 
-* <kbd>Shift</kbd>+<kbd>Enter</kbd> will run the current cell and advance to the next cell
+* ``Shift``+``Enter`` will run the current cell and advance to the next cell
 * <kbd>Ctrl</kbd>or<kbd>Cmd</kbd>+<kbd>Enter</kbd> will run the current cell without advancing to the next cell
 * <kbd>Alt</kbd>+<kbd>Enter</kbd> will run the current cell, and create a new cell beneath the current cell
 * Typing part of the name of an object or function, then pressing <kbd>Tab</kbd> will autocomplete it
