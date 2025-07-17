@@ -15,13 +15,13 @@ If you notice a bug with SIGMA, please raise this on the github. To do this:
 #. Give the issue a brief, sensible and descriptive title. For example "Error loading h5oina" file
 #. In the description, give a more detailed descrition of the issue. Some useful notes to include would be:
 
-  * The error message
+   * The error message
 
-  * The cell you ran which produced the error message
+   * The cell you ran which produced the error message
 
-  * Information about the files / workflow are using which might make it different from the example workbooks
+   * Information about the files / workflow are using which might make it different from the example workbooks
 
-  * Any other information that might help with reproducing the error
+   * Any other information that might help with reproducing the error
 
 #. Under the labels on the right hand side, select the 'bug' label
 #. Under the type section, select 'bug'
