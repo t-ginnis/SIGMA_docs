@@ -93,12 +93,15 @@ A browser window should open, with jupyter lab running. Navigate to the ``Intera
 Importing the Required Packages
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The first code cell of the notebook should look like:
+The first code cells of the notebook should look like:
 
 .. code-block:: python 
 
    from umap import UMAP # for UMAP latent space projections
    import sys # for relative imports of sigma
+
+
+.. code-block:: python 
    sys.path.insert(0,"..")
    from sigma.utils import normalisation as norm 
    from sigma.utils import visualisation as visual
@@ -111,7 +114,7 @@ The first code cell of the notebook should look like:
 
 
 
-Running this cell will:
+Running these cells will:
 
 * Import the ``umap`` package which is needed to perform latent space projections
 * Import the `sys` package -this is needed to perform "relative imports" of SIGMA2
@@ -119,4 +122,38 @@ Running this cell will:
 
 .. note::
    SIGMA2 is still in development, so for the time being it is imported using relative imports. When you create your own notebooks for analysis, you will need to ensure the relative imports "point" to the correct place - see :doc:`personal` section for more information about using SIGMA for your own data analysis.
+
+
+Loading a Dataset
+^^^^^^^^^^^^^^^^^
+
+To load a file into SIGMA, it should be loaded into the appropriate object.
+
+* For SEM+EDS datasets, where a spectrum is available for each pixel, use the ``SEMDataset`` object
+* For STEM+EDS datasets, use the ``TEMDataset`` object
+* For datasets where only images of elemental maps exist, use the ``ImageDataset`` object - note that this object has more limited functionality. 
+
+
+SIGMA2 supports loading from the following formats:
+
+* Bruker Composite Format ``.bcf``
+* ``.emi`` and ``.ser`` file pairs, created by FEI / ThermoFisher software
+* ``.hspy`` files from Hyperspy
+* ``.raw`` and ``.rpl`` files from Oxford Instruments 
+* ``.h5oina`` files from Oxford Instruments
+
+.. note::
+   Certain formats, in particular the ``.raw`` and ``.rpl`` formats, may contain issues with calibration. See the tutorial notebook for these specific files to determine how to calibrate these files in SIGMA.
+
+The example included in the dataset is a `.bcf` file from an SEM, so is loaded with the following cell:
+
+.. code-block:: python 
+
+   file_path='test.bcf'
+   sem=SEMDataset(file_path)
+
+
+We now have an ``SEMDataset`` object called ``sem`` which contains the EDS file. 
+
+
 
