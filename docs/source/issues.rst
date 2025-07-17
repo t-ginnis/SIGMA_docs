@@ -31,7 +31,7 @@ After the issue is reported, someone will look into it. They may leave a comment
 Once an issue is fixed, you may need to redownload and reinstall sigma to get the latest version with the bug fix.
 
 
-Opening a Notebook
+Requesting a Feature
 ^^^^^^^^^^^^^^^^^^
 
-In your conda command line interface, you can start jupyter lab by running the following:
+You may request a feature in a similar way:
