@@ -145,7 +145,7 @@ SIGMA2 supports loading from the following formats:
 .. note::
    Certain formats, in particular the ``.raw`` and ``.rpl`` formats, may contain issues with calibration. See the tutorial notebook for these specific files to determine how to calibrate these files in SIGMA.
 
-The example included in the dataset is a `.bcf` file from an SEM, so is loaded with the following cell:
+The example included in the dataset is a ``.bcf`` file from an SEM, so is loaded with the following cell:
 
 .. code-block:: python 
 
