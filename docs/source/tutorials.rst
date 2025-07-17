@@ -24,6 +24,41 @@ This should open a browser window with jupyter lab running. It should look like 
   :width: 400
   :alt: Browser window showing jupyter lab running
 
+In the left hand panel, you can see a folder structure. In here you can navigate through folders on your computer, into a folder containing the notebook(s) you wish to run.
+
+You can then open one of these notebooks by double clicking it. It should then open to the right of this panel containing the directories.
+
+
+Running Cells
+^^^^^^^^^^^^^
+
+A jupyter notebook is made up of cells. An example is shown here.
+
+.. image:: cells.png
+  :width: 400
+  :alt: Example of cells in jupyter
+
+A jupyter notebook will typically contain
+
+* Markdown cells. These usually contain text, which is intended to provide information / guidance to the user. They do not impact how the code is run in the notebook.
+* Code cells. These contain code, which will be ran by the notebook
+* Outputs. These appe
+
+To run a cell, select it with your mouse and press <kbd>Shift</kbd>+<kbd>Enter</kbd>. This will run the cell and advance to the next cell.
+
+
+Useful Shortcuts
+^^^^^^^^^^^^^^^^
+
+Some useful shortcuts for running and using cells in jupyter are:
+
+* <kbd>Shift</kbd>+<kbd>Enter</kbd> will run the current cell and advance to the next cell
+* <kbd>Ctrl</kbd>or<kbd>Cmd</kbd>+<kbd>Enter</kbd> will run the current cell without advancing to the next cell
+* <kbd>Alt</kbd>+<kbd>Enter</kbd> will run the current cell, and create a new cell beneath the current cell
+* Typing part of the name of an object or function, then pressing <kbd>Tab</kbd> will autocomplete it
+* After typing a function, pressing <kbd>Shift</kbd>+<kbd>Tab</kbd> will bring up the docstring for the function. This will contain brief information about what the function does, and what arguments it expects.
+
+
 
 
 
