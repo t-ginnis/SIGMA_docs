@@ -1,6 +1,32 @@
 Tutorials
 =========
 
+.. _introduction_to_jupyter
+
+Introduction to Jupyter
+------------------------
+
+Using SIGMA2 does not require any previous knowledge of python or jupyter notebooks. This section contains some tips and shortcuts to help users who are less experienced with python and jupyter to run SIGMA.
+
+Opening a Notebook
+^^^^^^^^^^^^^^^^^^
+
+In your conda command line interface, you can start jupyter lab by running the following:
+
+
+.. code-block:: bash
+
+   jupyter lab
+
+This should open a browser window with jupyter lab running. It should look like this.
+
+.. image:: jupyter_interface.png
+  :width: 400
+  :alt: Browser window showing jupyter lab running
+
+
+
+
 .. _interactive_sem_tutorial
 
 Interactive SEM Tutorial
