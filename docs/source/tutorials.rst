@@ -52,11 +52,11 @@ Useful Shortcuts
 
 Some useful shortcuts for running and using cells in jupyter are:
 
-* `Shift`+`Enter` will run the current cell and advance to the next cell
-* `Ctrl`or`Cmd`+`Enter` will run the current cell without advancing to the next cell
-* `Alt`+`Enter` will run the current cell, and create a new cell beneath the current cell
-* Typing part of the name of an object or function, then pressing `Tab` will autocomplete it
-* After typing a function, pressing `Shift`+`Tab` will bring up the docstring for the function. This will contain brief information about what the function does, and what arguments it expects.
+* ``Shift`` + ``Enter`` will run the current cell and advance to the next cell
+* ``Ctrl`` or ``Cmd`` + ``Enter`` will run the current cell without advancing to the next cell
+* ``Alt`` + ``Enter`` will run the current cell, and create a new cell beneath the current cell
+* Typing part of the name of an object or function, then pressing ``Tab`` will autocomplete it
+* After typing a function, pressing ``Shift`` + ``Tab`` will bring up the docstring for the function. This will contain brief information about what the function does, and what arguments it expects.
 
 
 
