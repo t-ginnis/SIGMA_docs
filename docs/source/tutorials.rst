@@ -149,11 +149,42 @@ The example included in the dataset is a ``.bcf`` file from an SEM, so is loaded
 
 .. code-block:: python 
 
-   file_path='test.bcf'
-   sem=SEMDataset(file_path)
+   file_path = 'test.bcf'
+   sem = SEMDataset(file_path)
 
 
 We now have an ``SEMDataset`` object called ``sem`` which contains the EDS file. 
+
+If you collected a dataset on a TEM, you will instead need to load it using the ``TEMDataset`` object, with:
+
+.. code-block:: python
+
+   file_path = 'tem_dataset.bcf' #replace this with the path to your tem file
+   tem = TEMDataset(file_path)
+
+Viewing the Dataset
+^^^^^^^^^^^^^^^^^^^
+
+The dataset can be viewed by running the following cell:
+
+.. code-block:: python 
+
+   gui.view_dataset(sem)
+
+
+This cell may take some time to run, depending on the size of the dataset. Once this cell has finished running, a number will replace the ``[*]`` that appears next to the cell, and a Graphical User Interface (GUI) will appear beneath the cell. It should contain the following:
+
+#. A text box, with the label "Energy (keV)". This can be used to search for X-Ray peaks of a given energy, if certain peaks are not already included in the metadata
+#. A text box labelled "Feature List". For the ``test.bcf`` file, this box should already contain X-Ray lines, starting with "Al_Ka", though more can be added if desired.
+#. A windowed GUI containing tabs labelled "Navigation Signal", "Sum Spectrum" and "Elemental Maps (raw)"
+
+The firt tab in the gui show the navigation image. For the file used in this notebook, this is the Back Scattered Electron (BSE) image that is part of the ``test.bcf`` file.
+
+The second tab shows the summed spectrum, the full EDS spectrum from all of the pixels in the dataset. The peaks defined in the feature list should me annotated on this plot
+
+The third tab shows "raw" elemental map, found by integrating the peaks defined in the feature list from the centre of the peak to plus/minus the full width half maximum of the peak. The maps are "raw", as they are from the unbinned dataset.
+
+
 
 
 
