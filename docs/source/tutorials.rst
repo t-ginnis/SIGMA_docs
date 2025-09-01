@@ -185,6 +185,93 @@ The second tab shows the summed spectrum, the full EDS spectrum from all of the 
 The third tab shows "raw" elemental map, found by integrating the peaks defined in the feature list from the centre of the peak to plus/minus the full width half maximum of the peak. The maps are "raw", as they are from the unbinned dataset.
 
 
+Pre-Processing Steps
+^^^^^^^^^^^^^^^^^^^^
+
+The following cell performs some pre-processing steps to improve the projection into latent space. This involves:
+
+#. Binning the data, reducing the total number of pixels and increasing the X-ray counts for each binned pixel
+#. Normalising the data for each pixel, so that the integrated intensity is 1
+#. Removing the intense zero energy peak
+
+The degree of binning is defined by the ``rebin_signal((nx,ny))`` function, which will bin the dataset by factors of ``nx`` and ``ny`` in the x and y dimensions respectively.
+
+The normalisation is performed with the ``peak_intensity_normalisation`` function.
+
+The zero energy peak is removed by cropping the signal, the lower limit of this crop is defined in the ``remove_first_peak(lower_limit)`` function, where ``lower_limit`` defines the minimum energy, in keV, of the cropped spectrum.
+
+These three steps are all performed in the single cell:
+
+
+.. code-block:: python 
+
+   # Rebin both edx and bse dataset
+   sem.rebin_signal(size=(3,3))
+   
+   # normalisation to make the spectrum of each pixel summing to 1.
+   sem.peak_intensity_normalisation()
+   
+   # Remove the first peak until the energy of 0.1 keV
+   
+   sem.remove_first_peak(end=0.1)
+   
+
+The binned dataset can be visualised by running the following cell again, and navigating to the "Elemental maps (binned)" tab.
+
+.. code-block:: python 
+
+   gui.view_dataset(sem)
+
+
+
+In addition to normalising the EDS spectrum for each pixel, the "feature vectors" must also be normalised. The "feature vector" for a pixel is a vector, with a length defined by the number of X-Ray lines in "feature list". The intensity of each line in the feautre vector for a pixel is the integrated intensity of that peak.
+
+These can be normalised using one or more of the following
+* neighbour averaging
+* Neighbour averaging, followed by the "z score" method (which scales based on the mean and standard deviation of the intensity - see https://en.wikipedia.org/wiki/Standard_score)
+* Neighbour averaging, followed by "z score", followed by the "softmax" method (see https://en.wikipedia.org/wiki/Softmax_function) - this method is useful when there are small deviations in composition away from the mean.
+
+The effect of each of these normalisation steps can be visualised by running this cell:
+
+.. code-block:: python 
+
+   gui.view_pixel_distributions(sem,norm_list=[norm.neighbour_averaging,norm.zscore,norm.softmax],cmap='Reds')
+
+For this dataset, we will use the neighbour averaging and z score methods. We perform these on the dataset by running the following cell. If you choose to use a different set of normalisation parameters, uncomment the relevant line of code in the cell.
+
+.. code-block:: python
+
+   #sem.normalisation([norm.neighbour_averaging])
+   sem.normalisation([norm.neighbour_averaging,norm.zscore])
+   #sem.normalisation([norm.neighbour_averaging,norm.zscore,norm.softmax])
+
+
+Now normalisation is complete, the intensity maps can be inspected again by running this cell:
+
+.. code-block:: python
+   print('After normalisation:')
+   gui.view_intensity_maps(spectra=sem.normalised_elemental_data, element_list=sem.feature_list)
+
+
+Optional - Adding the BSE intensity as a feature
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For certain datasets, it may be desireable to include the BSE intensity as a feature, as features may be visible on this image that are not observed in the elemental maps due to a reduced spatial resolution. The BSE image can be added to the dataset by running the following cell:
+
+.. code-block:: python
+   sem.get_feature_maps_with_nav_img(normalisation=[norm.neighbour_averaging,norm.zscore]) #include any normalisation steps that were performed earlier.
+
+When you run this cell you *must* specify the normalisation steps used for the normalisation of the feature vectors using the ``normalisation`` argument. For example, if only neigbour averaging was performed, you should instead run:
+
+.. code-block:: python
+   sem.get_feature_maps_with_nav_img(normalisation=[norm.neighbour_averaging])
+
+
+
+
+
+
+
 
 
 
