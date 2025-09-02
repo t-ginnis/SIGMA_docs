@@ -259,18 +259,131 @@ Optional - Adding the BSE intensity as a feature
 For certain datasets, it may be desireable to include the BSE intensity as a feature, as features may be visible on this image that are not observed in the elemental maps due to a reduced spatial resolution. The BSE image can be added to the dataset by running the following cell:
 
 .. code-block:: python
+
    sem.get_feature_maps_with_nav_img(normalisation=[norm.neighbour_averaging,norm.zscore]) #include any normalisation steps that were performed earlier.
 
 When you run this cell you *must* specify the normalisation steps used for the normalisation of the feature vectors using the ``normalisation`` argument. For example, if only neigbour averaging was performed, you should instead run:
 
 .. code-block:: python
+
    sem.get_feature_maps_with_nav_img(normalisation=[norm.neighbour_averaging])
 
+Latent Space Projection
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The dataset is now ready for dimensionality reduction. In SIGMA, there are two methods to reduce the dimensionality of the dataset.
+
+* Uniform Manifold Approximation and Projection (UMAP) - see https://umap-learn.readthedocs.io/en/latest/ for more details
+* Using an autoencoder - see https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2022GC010530
+
+In practice, it is only neccessary to use one of these methods, but both are included in this tutorial. 
+
+Projection with UMAP
+^^^^^^^^^^^^^^^^^^^^
+
+Projection with UMAP is performed by running the following cell. This reshapes the feature vectors into a 1D list, before using the UMAP package to perform the dimensionality reduction.
+
+.. code-block:: python
+
+   data = sem.normalised_elemental_data.reshape(-1,len(sem.feature_list))
+   umap = UMAP(
+           n_neighbors=15,
+           min_dist=0.02,
+           n_components=2,
+           metric='euclidean'
+       )
+   latent = umap.fit_transform(data)
+
+There are 2 main parameters which can be adjusted to change the nature of the projection:
+
+#. ``n_neigbours`` - this alters the extent to which local variations or global structure is preserved in the projection. Smaller numbers emphasise the local structure of the dataset, and larger values emphasise the large scale, global structure of the dataset.
+#. ``min_dist`` - this defines the minimum distance between points in latent space. Small values allow points to lie close to each other, and can be useful for clustering. Larger values mean that overall changes are better visualised in the latent space projection.
+
+For this dataset, it was found that ``n_neighbors=15`` and ``min_dist=0.02`` resulted in a good projection - but these may need to be altered depending on the dataset.
+
+Other values of the UMAP function are ``n_components=2`` and ``metric='euclidian'`` - these should not need to be altered.
+
+The results of the projection can be visualised:
 
 
+Projection with an Autoencoder
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Dimensionality reduction can also be performed using an autoencoder, which uses neural networks to reduce the dimensionality of the dataset. 
+
+The autoencoder is setup with the following cell:
+
+.. code-block:: python
 
 
+   # The integer in this function can determine different initialised parameters of model (tuning sudo randomness)
+   # This can influence the result of dimensionality reduction and change the latent space.
+   same_seeds(2)
+   
+   # Set up the experiment, e.g. determining the model structure, dataset for training etc.
+   general_results_dir='./' 
+   ex = Experiment(descriptor='zscore',
+                   general_results_dir=general_results_dir,
+                   model=AutoEncoder,
+                   model_args={'hidden_layer_sizes':(512,256,128)}, # number of hidden layers and corresponding neurons
+                   chosen_dataset=sem.normalised_elemental_data,
+                   save_model_every_epoch=True)
 
+
+This determines where the model will be saved, the parameters of the autoencoder to use, and the dataset to run the autoencoder on.
+
+The autoencoder can be trained by running the following cell. Depending on the size of the datsete, the extent of the binning, and your hardware, this may take some time.
+
+.. code-block:: python
+
+   # Train the model
+   ex.run_model(num_epochs=50,
+                patience=50, 
+                batch_size=64,
+                learning_rate=1e-4, 
+                weight_decay=0.0, 
+                task='train_all', # Change to 'train_eval' to train on the training set (85% dataset) and test on a testing set (15%) for evaluation
+                noise_added=0.0,
+                KLD_lambda=0.0,
+                criterion='MSE',
+                lr_scheduler_args={'factor':0.5,
+                                   'patience':5, 
+                                   'threshold':1e-2, 
+                                   'min_lr':1e-6,
+                                   'verbose':True}) 
+   latent = ex.get_latent()
+
+
+This methodology uses many more parameters than UMAP. A brief description of the parameters used is:
+
+* ``num_epochs`` - Number of full passes through the training data.
+* ``batch_size`` - Number of samples in each training mini-batch.
+* ``patience`` - Number of epochs with no improvement to allow before stopping training early.
+* ``learning_rate`` - Initial learning rate for the optimizer.
+* ``weight_decay`` - L2 weight regularization factor, helps prevent overfitting by penalizing large weights.
+* ``task`` - Specifies the training/evaluation regime:
+  
+  * ``'train_all'`` - Train on the entire dataset (no held-out test set).
+  * ``'train_eval'`` - Train on ~85% of the dataset and evaluate on ~15% held out for testing.
+
+* ``noise_added`` - Amount of noise applied to the inputs for training a denoising autoencoder.
+  
+  * ``0.0`` - No noise applied.
+  * Positive float - Noise intensity (likely Gaussian).
+  * ``None`` - Noise injection disabled.
+
+* ``criterion`` - Loss function for reconstruction. Default is ``'MSE'`` (Mean Squared Error).
+* ``KLD_lambda`` - Weight applied to the KL-divergence term in the loss. 
+  * ``0.0`` → standard autoencoder. 
+  * ``>0.0`` → variational autoencoder (VAE) with KL penalty.
+* ``print_latent`` - If ``True``, print or log latent space representations during or after training.
+* ``lr_scheduler_args`` - Dictionary of arguments for the learning rate scheduler (typically ``ReduceLROnPlateau``):
+  
+  * ``factor`` - Multiplicative factor for LR reduction (e.g., ``0.5`` halves the LR).
+  * ``patience`` - Epochs without improvement before reducing LR.
+  * ``threshold`` - Minimum change in the monitored metric to qualify as improvement.
+  * ``min_lr`` - Lower bound on the learning rate.
+  * ``verbose`` - If ``True``, log learning rate updates.
 
 
 
