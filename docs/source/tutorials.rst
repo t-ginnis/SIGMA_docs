@@ -303,13 +303,13 @@ For this dataset, it was found that ``n_neighbors=15`` and ``min_dist=0.02`` res
 
 Other values of the UMAP function are ``n_components=2`` and ``metric='euclidian'`` - these should not need to be altered.
 
-The results of the projection can be visualised:
+The latent space is now stored in the ``latent`` variable.
 
 
 Projection with an Autoencoder
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Dimensionality reduction can also be performed using an autoencoder, which uses neural networks to reduce the dimensionality of the dataset. 
+Dimensionality reduction can also be performed using an autoencoder, which uses neural networks to reduce the dimensionality of the dataset. This method involves many more parameters which the user can control, and may take longer to run than the UMAP projection.
 
 The autoencoder is setup with the following cell:
 
@@ -384,6 +384,59 @@ This methodology uses many more parameters than UMAP. A brief description of the
   * ``threshold`` - Minimum change in the monitored metric to qualify as improvement.
   * ``min_lr`` - Lower bound on the learning rate.
   * ``verbose`` - If ``True``, log learning rate updates.
+
+
+Eventually, the model will finish training, and the latent space is stored in the ``latent`` variable.
+
+Visualising Latent Space
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Before clustering, the latent space can be visulaised. This is useful for determining if the UMAP / autoencoder parameters are sensible for your dataset.
+
+Running the following cell will visualise the ``latent`` parameter.
+
+.. code-block:: python
+
+   gui.show_projection(latent)
+
+For the following clustering to perform well, there should be distinct regions visible in latent space, such as spikes radiating from a central region, or distinct islands. If not, it may be necessary to adjust the parameters of UMAP or the autoencoder, to improve the clustering in the next step.
+
+Choosing a clustering algorithm
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Two methods for clustering the data are demonstrated in this tutorial.
+
+#. Gaussian Mixture Modelling (GMM) - this fits the data in latent space with a number of 2D gausians defined by the user. The each point is assigned to a cluster based on how close it is to the center of each distribution
+#. Hierarchical Density-Based Spatial Clustering of Applications with Noise (HDBSCAN) - this groups points based on areas of high density without requiring the number of clusters in advance, and can leave low-density points unassigned as noise. It can be useful when there are small, dense clusters of points, which would otherwise be grouped with another cluster with GMM.
+
+Both methods have their advantages. Both can be performed on the same latent space to determine which method is best for a specific dataset and application.
+
+
+Clustering with GMM
+^^^^^^^^^^^^^^^^^^^
+
+First, we can perform clustering using GMM by running this cell
+
+.. code-block:: python
+
+   ps_gmm=PixelSegmenter(latent=latent,
+                         dataset=sem,method='GaussianMixture',
+                         method_args={'n_components' :50,
+                                      'random_state':0, 'init_params':'kmeans'} )
+
+We use the ``PixelSegmenter`` object to perform the cluster, on the ``latent`` variable which is from the dataset ``sem``. In this instance, we use the GMM, ``'GaussianMixture'`` method. 
+
+The GMM method takes further arguments, defined in the ``method_args`` dictionary. These are:
+
+* ``n_components`` - The number of Gaussians to fit to the data, which corresponds with the number of clusters we want. In this case, we choose 50.
+* ``random_state`` - This is a seed provided to generate the intial random state. The clustering will run fine without providing this argument, but specifying it means that if you run the same cell on the same latent space, you will get the same clustering output.
+* ``init_params`` - The initial parameters of the GMM model - in this case we specify ``kmeans`` - which sets the mean of each cluster to the centroids of a "k means" clustering output.
+
+Once the cell has finished running, the clusters are stored in the ``ps_gmm`` varaible
+
+
+
+
 
 
 
