@@ -434,8 +434,19 @@ The GMM method takes further arguments, defined in the ``method_args`` dictionar
 
 Once the cell has finished running, the clusters are stored in the ``ps_gmm`` varaible
 
+Clustering with HDBSCAN
+^^^^^^^^^^^^^^^^^^^^^^^
 
+Instead of using GMM, clustering can also be performed with the HDBSCAN algorithm by running the following cell.
 
+.. code-block:: python
+
+   ps_hdb = PixelSegmenter(latent=latent, 
+                       dataset=sem,
+                       method="HDBSCAN",
+                       method_args=dict(min_cluster_size=10, min_samples=10,
+                                        max_cluster_size=int(len(latent)/10),
+                                        cluster_selection_epsilon=1e-1) )
 
 
 
