@@ -592,6 +592,7 @@ It can also be useful to visualise latent space alongside the image of the sampl
 This is done with the following cell:
 
 .. code-block:: python
+
    gui.check_latent_space(ps=ps_gmm,show_map=True,ratio_to_be_shown=1.0,alpha_cluster_map=0.5)
 
 The arguments of this function are:
@@ -600,6 +601,8 @@ The arguments of this function are:
 * ``ratio_to_be_shown`` - the proportion of points in latent space to plot - for datasets containing many points, the interactive widget may run slowly. This can be improved by reducing the number of points in the plot, by setting ``ratio_to_be_shown`` to 0.5 for example.
 * ``alpha_cluster_map`` - the transparency of the cluster map, that is overlayed ontop of the naviagtion image from the dataset contained in the PixelSegmenter - in our case, this is the ``sem`` dataset loaded at the start.
 
+
+This produces an interactive widget. Regions of latent space can be highlighted. The corresponding regions of the sample will be highligted, and the composition of this region is indicated by the bar chart of the X-Ray line intensities. Regions of the sample can also be highlighted, to see which regions of latent space these correspond to.
 
 
 Saving the Clustering
@@ -613,8 +616,38 @@ The updated ``PixelSegmenter`` object, that includes any merged, new, and recolo
 Loading a Clustering from a ``.pkl`` file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Before loading a ``PixelSegmenter``  object, a normalised dataset must be created. This can be done by rerunning the loading and normalisation cells from the start of the notebook - or by runnning this single cell which performs the loading and normalisation:
+
+.. code-block:: python
+   
+   file_path='test.bcf'
+
+   sem_loaded=SEMDataset(file_path) #loading it in again
+   
+   sem_loaded.rebin_signal(size=(4,4)) #repeating the processing steps from earlier
+   sem_loaded.peak_intensity_normalisation()
+   sem_loaded.remove_first_peak(end=0.1)
+   
+   sem_loaded.normalisation([norm.neighbour_averaging,norm.zscore])
+
+Once a dataset has been loaded into the ``sem_loaded`` variable, the clustering performed earlier can be reobtained by using the ``.pkl`` file. This is done by running the following cell:
+
+.. code-block:: python
+
+   ps_loaded = PixelSegmenter.from_saved_state("gmm_merged_with_bse.pkl",dataset=sem_loaded)
 
 
+
+You can verify that the modifications to the clusters, performed interactively, have been saved by re-plotting the ``PixelSegmenter`` object:
+
+
+.. code-block:: python
+
+   gui.interactive_latent_plot(ps=ps_loaded,ratio_to_be_shown=1.0,n_colours=30)
+
+
+.. note:: Clusters with HDBSCAN
+   The tutorial notebook used ``ps_gmm`` to demonstrate the visualisation capabilities of SIGMA, but this functionality will also work for clusters created with HDBSCAN, if the ``ps_hdb`` variable is used as the argument for any of the visualisation functions.
 
 
 
