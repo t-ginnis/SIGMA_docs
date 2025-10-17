@@ -509,7 +509,9 @@ The parameters of this function are:
 
 Running the above cell should produce a widget like the one shown here:
 
-
+.. image:: interactive_plot.png
+  :width: 400
+  :alt: Browser window showing jupyter lab running
 
 
 
