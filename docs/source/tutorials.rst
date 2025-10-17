@@ -515,6 +515,32 @@ Running the above cell should produce a widget like the one shown here:
 
 
 
+Recolourig a Cluster
+""""""""""""""""""""
+
+To change the colour of a single cluster:
+
+#. Click on the cluster with the cursor
+#. Select a colour from the list, or choose a custom colour
+#. Press the Recolour Selection button
+
+The plot should re-render, with the cluster re-coloured
+
+Changing the Colours of multiple clusters
+"""""""""""""""""""""""""""""""""""""""""
+
+To select multiple clusters either
+* Click on all of the clusters individaully
+* Use the "Rectangle tool" to define a box that contains multiple clusters
+* Use the "Lasso tool" to define an arbitrary shape containing multiple clusters
+
+If at any point you wish to deselect clusters, double clicking anywhere on the plot will unselect the clusters
+
+Once you are happy with your selection, select the desired colour and press the Recolour Selection button. The plot will re-render, and the selected clusters should all be the chosen colour
+
+.. note:: Recolouring Clusters.
+   Recolouring clusters this way does not merge them into a single cluster - it simply changes the colour used in plots. Any downstream analysis (eg. NMF) will still treat all clusters recoloured this way as separate clusters.
+
 
 
 
