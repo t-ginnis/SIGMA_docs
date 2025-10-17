@@ -465,6 +465,50 @@ When using the HDBSCAN alogrithm, the following arguments are provided to this s
 The parameters used in the cell in the tutorial notebook serve as a useful starting point for clustering SEM EDS datasets with HDBSCAN. For further information about these parameters and the HDBSCAN algorithm, see https://hdbscan.readthedocs.io/en/latest/index.html
 
 
+Visualising the Clustering
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+SIGMA2 includes many methods for visulaising the results of the clustering. The simplest of these is the ``view_latent_space`` function, which can be called by running the following cell:
+
+
+.. code-block:: python
+
+   gui.view_latent_space(ps=ps_gmm, color=True)
+
+In this case, we are visualising the GMM clustering by calling the ``ps_gmm`` object, but we could instead visualise the results of the HDBSCAN clustering by replacing this with the other ``PixelSegmenter`` object we created, ``ps_hdb``. The ``color=True`` argument.
+
+This will produce a plot of the clustering algorithm. In the gase of clustering with GMM, it also plots the Gaussians used to produce the clusters.
+
+A greyscale plot can be produced by setting ``color`` to ``False``.
+
+The plot produced by this cell allows for some interactivity, by changing the colors of the clusters.
+
+
+Editing the Clustering Interactively
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+SIGMA2 allows users to interact with the latent space by:
+* Merging clusters together
+* Creating new clusters
+* Changing the appearance of plots by making multiple clusters the same colour
+* Changing the colours of individual clusters
+
+This can be done by running the following cell:
+
+
+.. code-block:: python
+
+   gui.interactive_latent_plot(ps=ps_gmm,ratio_to_be_shown=1.,n_colours=30)
+
+
+The parameters of this function are:
+
+* ``ps`` - the PixelSegmenter object to be shown
+* ``ratio_to_be_shown`` - the proportion of points in latent space to plot - for datasets containing many points, the interactive widget may run slowly. This can be improved by reducing the number of points in the plot, by setting ``ratio_to_be_shown`` to 0.5 for example.
+* ``n_colours`` The number of colours to show in the widget. These are the colours which can be quickly chosen for recolouring clusters, though it is also always possible to define custom colours.
+
+
+
 
 
 
