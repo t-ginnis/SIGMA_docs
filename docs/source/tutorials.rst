@@ -501,7 +501,7 @@ This can be done by running the following cell:
    gui.interactive_latent_plot(ps=ps_gmm,ratio_to_be_shown=1.,n_colours=30)
 
 
-The parameters of this function are:
+The arguments of this function are:
 
 * ``ps`` - the PixelSegmenter object to be shown
 * ``ratio_to_be_shown`` - the proportion of points in latent space to plot - for datasets containing many points, the interactive widget may run slowly. This can be improved by reducing the number of points in the plot, by setting ``ratio_to_be_shown`` to 0.5 for example.
@@ -584,8 +584,34 @@ If you are unhappy with any merges, recolours, or new clusters, the original clu
 
 
 
+Visualising Latent Space and Real Space
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It can also be useful to visualise latent space alongside the image of the sample, to see what regions of latent space correspond to in the sample (eg. matrix, precipitates etc.)
+
+This is done with the following cell:
+
+.. code-block:: python
+   gui.check_latent_space(ps=ps_gmm,show_map=True,ratio_to_be_shown=1.0,alpha_cluster_map=0.5)
+
+The arguments of this function are:
+
+* ``ps`` - the PixelSegmenter object to be shown
+* ``ratio_to_be_shown`` - the proportion of points in latent space to plot - for datasets containing many points, the interactive widget may run slowly. This can be improved by reducing the number of points in the plot, by setting ``ratio_to_be_shown`` to 0.5 for example.
+* ``alpha_cluster_map`` - the transparency of the cluster map, that is overlayed ontop of the naviagtion image from the dataset contained in the PixelSegmenter - in our case, this is the ``sem`` dataset loaded at the start.
 
 
+
+Saving the Clustering
+^^^^^^^^^^^^^^^^^^^^^
+
+The updated ``PixelSegmenter`` object, that includes any merged, new, and recoloured clusters, can be saved as a ``.pkl`` file by running the following cell.
+
+.. code-block:: python
+   ps_gmm.save_state('gmm_merged_with_bse.pkl')
+
+Loading a Clustering from a ``.pkl`` file
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 
