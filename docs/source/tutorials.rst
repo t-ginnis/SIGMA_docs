@@ -449,6 +449,25 @@ Instead of using GMM, clustering can also be performed with the HDBSCAN algorith
                                         cluster_selection_epsilon=1e-1) )
 
 
+This will create a new ``PixelSegmenter`` object named ``ps_hdb``. The following argumnents are used to perform the clustering:
+
+* ``latent=latent`` - this defines the latent space the clustering is performed on. Here, we use the ``latent`` variable, created either with an autoencoder or UMAP
+* ``dataset=sem`` - the dataset to perform the clustering on. This is the SEM dataset we loaded earlier.
+* ``method="HDBSCAN"`` - this instructs the clustering to use the HDBSCAN algorithm
+
+When using the HDBSCAN alogrithm, the following arguments are provided to this specific clustering alogrithm using the ``method_args`` dictionary. Brief descriptions of the arguments in this dictionary are:
+
+* ``min_cluster_size`` - defines the minimum number of points in a group that are treated as a cluster by HDBSCAN
+* ``min_samples`` - a density threshold for the HDBSCAN algorithm. Higher values means points must be more densley populated in a region for that region to be treated as a cluster
+* ``max_cluster_size`` - defines the maximum allowed size of a cluster. Any larger clusters will be broken up into smaller clusters.
+* ``cluster_selection_epsilon`` - a parameter to control how HDBSCAN merges nearby clusters - larger values will result in some nearby clusters merging together
+
+The parameters used in the cell in the tutorial notebook serve as a useful starting point for clustering SEM EDS datasets with HDBSCAN. For further information about these parameters and the HDBSCAN algorithm, see https://hdbscan.readthedocs.io/en/latest/index.html
+
+
+
+
+
 
 
 
