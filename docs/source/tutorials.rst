@@ -542,6 +542,52 @@ Once you are happy with your selection, select the desired colour and press the 
    Recolouring clusters this way does not merge them into a single cluster - it simply changes the colour used in plots. Any downstream analysis (eg. NMF) will still treat all clusters recoloured this way as separate clusters.
 
 
+Merging Clusters Together
+"""""""""""""""""""""""""
+
+The widget also allows for multiple clusters to be merged into a single cluster.
+
+To do this, select the clusters as before, either by clicking, or using the box/lasso tool.
+
+Then, select "Merge Clusters"
+
+.. note:: Merging Clusters.
+   Merging clusters this way will merge them into a single cluster. It will reduce the overall number of clusters, and will affect downstream analysis.
+
+.. note:: Unnassigned Points
+   Certain clustering algorithms, like HDBSCAN, will leave some points as unassigned. These are treated as cluster "-1". Points in this "-1 cluster" will not be merged into other clusters during the merge step.
+
+
+Once the merged cluster is created, it can be recoloured and merged again, just like any other cluster.
+
+Creating New Clusters
+"""""""""""""""""""""
+
+To create a new cluster:
+
+1. First press the "Select Points" button - this means that the box/lasso tools are now selecting specific points, not clusters
+2. Select a set of points for the new cluster using the box/lasso tool
+.. tip:: Unwanted Points
+   If you accidentally select some point/points, pressing the "Clear Selection" button will clear any selected points, and you can start selecting again.
+3. Once all the points have been selected, press "Create Cluster"
+
+The plot will be re-rendered, and the new cluster will be shown. This cluster can be recoloured, as with any cluster.
+
+
+.. warning:: Unnassigned Points
+   Certain clustering algorithms, like HDBSCAN, will leave some points as unassigned, and stored in the "-1" cluster. The can either be included or excluded from the new cluster, by selecting either the "Include -1" or "Exclude -1" button.
+
+Resetting
+"""""""""
+
+If you are unhappy with any merges, recolours, or new clusters, the original clustering can be reattained by pressing the "Reset" button, then pressing the confirm button.
+
+
+
+
+
+
+
 
 
 
