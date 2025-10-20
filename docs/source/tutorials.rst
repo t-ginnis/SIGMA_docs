@@ -646,10 +646,156 @@ You can verify that the modifications to the clusters, performed interactively, 
    gui.interactive_latent_plot(ps=ps_loaded,ratio_to_be_shown=1.0,n_colours=30)
 
 
-.. tip ::
+.. tip::
    The tutorial notebook used ``ps_gmm`` to demonstrate the visualisation capabilities of SIGMA, but this functionality will also work for clusters created with HDBSCAN, if the ``ps_hdb`` variable is used as the argument for any of the visualisation functions.
 
+Visualising Clustering Results
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+SIGMA contains functionality to plot and export the results of the interactive clustering.
+
+``view_phase_map``
+""""""""""""""""""
+
+To view all of the clusters overlayed on the navigation image, use the ``view_phase_map`` function by running the following cell:
+
+.. code-block:: python
+
+   gui.view_phase_map(ps=ps_gmm,alpha_cluster_map=0.5)
+
+Where ``ps_gmm`` is the PixelSegmenter object we are plotting, and ``alpha_cluster_map`` is the transparency of the clusters overlayed on the navigation image.
+
+``show_cluster_distribution``
+"""""""""""""""""""""""""""""
+
+To view the spatial distribution of each cluster alone, along with the relative intensities of each element in the cluster, and the average spectra for each cluster, use ``show_cluster_distribution`` by running the following cell:
+
+.. code-block:: python
+
+   gui.view_phase_map(ps=ps_gmm)
+
+
+.. note::
+   If there are a large number of clusters, this cell may take some time to finish plotting them all.
+
+
+``view_clusters_sum_spectra``
+"""""""""""""""""""""""""""""
+
+The following cell can be run to display the cluster maps overlayed on the navigation image. This ``view_clusters_sum_spectra`` function allows for the individual spectra to be plotted more interactively.
+
+.. code-block:: python
+
+   gui.view_clusters_sum_spectra(ps=ps_gmm, normalisation=True, spectra_range=(0,8))
+
+
+* ``normalisation`` determines if the spectra is normalised before plotting
+* ``spectra_range`` defines the energy range in keV of the spectra
+
+Exporting Binary Masks
+^^^^^^^^^^^^^^^^^^^^^^
+
+Standard Resolution Masks
+"""""""""""""""""""""""""
+
+For certain downstream analysis, exporting binary masks of the clusters may be useful. This can be done using the `export_cluster_masks`` method of a ``PixelSegmenter`` object, by running the following cell:
+
+.. code-block:: python
+
+   ps_gmm.export_cluster_masks(output_dir='cluster_masks') # export at default resolution of the navigation image
+
+Where ``output_dir`` defines the directory (folder) to export the binary masks to. After running this cell, the ``cluster_masks`` directory should be generated, and it will contain ``.tiff`` files named ``cluster_1.tiff`` etc.
+
+Upscaled Cluster Masks
+""""""""""""""""""""""
+
+It may be useful to upscale the cluster masks to a higher resolution. This can be done by providing a high resolution image to the ``export_cluster_masks`` method. The effect of this is that the masks will be upscaled exported at the resolution of this image. This is shown in the following cell:
+
+.. code-block:: python
+   ps_hdb.export_cluster_masks(output_dir='high_res_cluster_masks',high_res_path='high_res_image.tif') # export at resolution of specified image
+
+
+
+Non-Negative Matrix Factorisation (NMF)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Basic NMF
+"""""""""
+
+The individual spectra that contribute to each of the clusters can be estimated using NMF, which aims to unmix the clusters which may consist of several overlapping signals.
+
+Further details of how NMF is used as part of a workflow involving SIGMA can be found at https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2022GC010530
+
+To perform NMF on a ``PixelSegmenter`` object, run the following cell:
+
+.. code-block:: python
+
+   weights, components = ps_gmm.get_unmixed_spectra_profile(clusters_to_be_calculated='All', 
+                                                 n_components=4,
+                                                 normalised=False, 
+                                                 method='NMF', 
+                                                 method_args={'init':'nndsvd'})
+
+
+This function takes the following arguments:
+
+* ``clusters_to_be_calculated`` - Specifies which clusters to include in the unmixing process. If "All", all available clusters are used, otherwise, provide a list of cluster IDs to subset.
+
+* ``n_components`` - Number of NMF components to extract. If "All", the number of components equals the number of selected clusters - otherwise, provide an integer to extract that many components
+
+* ``normalised`` : Whether to normalize spectra before performing NMF. Normalization helps ensure that component extraction is not biased by intensity differences.
+
+* ``method`` - The unmixing algorithm to use. Currently, only `"NMF"` (Non-negative Matrix Factorization) is supported, though support for other algorithms may be added in the future.
+
+
+* ``method_args`` - Additional keyword arguments to pass to the algorithm that performs NMF.
+
+In this case, we pass the following arguments to the NMF algorithm:
+
+* ``init`` - this defines the initial guess for the NMF end-member spectra - in this case the NNDSVD algorithm is used to determine the initial guess.
+
+Running this cell produces two outputs - ``weights`` and ``components``. The ``components`` variable defines the end-member spectra, and ``weights`` contians information about how much each of these spectra contributes to each component.
+
+Providing an Initial Guess
+""""""""""""""""""""""""""
+
+If, based on the clustering analysis, it is clear that certain clusters already are (or are very close to) the individual unmixed spectra, these can be passed into the NMF algorithm. For example, if the spectrum for cluster 1 looks close slilica, and the spectra for cluster 17 looks close to magnetite, and these are two phases we expect to see in the sample, we can provide these two clusters as an initial guess for the NMF algorithm. This is done using the following cell:
+
+.. code-block:: python
+
+weights_guessed, components_guessed = ps_gmm.get_unmixed_spectra_profile_init_guess(clusters_to_be_calculated='All', 
+                                                 n_components=3,
+                                                 normalised=False, 
+                                                 method='NMF', 
+                                                 method_args={'init':'nndsvd'},
+                                                seed_clusters=[1,17])
+
+Where we use ``seed_clusters`` to define the initial guess of clusters. 
+
+.. note::
+   You can provide as many or as few initial guesses for end-members as you like, independednt of the ``n_components`` paramenter, Any remaining initial guesses will be estimated using the ``init`` method provided to the NMF algorithm
+
+Visualising NMF Results
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``weights`` and ``components`` can be inspected using the following cell:
+
+.. code-block:: python
+
+   gui.show_unmixed_weights_and_compoments(ps=ps_gmm, weights=weights, components=components)
+
+This produces a widget where
+
+1. The weights of the components contributing to each cluster can be inspected
+2. All of the NMF components can be visualised, either together or individually
+
+The spatial distribution of the clusters can be visualised using the following cell:
+
+.. code-block:: python
+
+   gui.show_abundance_map(ps=ps_gmm, weights=weights, components=components)
+
+Components can be selected from the drop down menu to plot their distribution spatially
 
 
 
