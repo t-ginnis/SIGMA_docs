@@ -538,7 +538,7 @@ If at any point you wish to deselect clusters, double clicking anywhere on the p
 
 Once you are happy with your selection, select the desired colour and press the Recolour Selection button. The plot will re-render, and the selected clusters should all be the chosen colour
 
-.. note:: Recolouring Clusters.
+.. note:: 
    Recolouring clusters this way does not merge them into a single cluster - it simply changes the colour used in plots. Any downstream analysis (eg. NMF) will still treat all clusters recoloured this way as separate clusters.
 
 
@@ -554,7 +554,7 @@ Then, select "Merge Clusters"
 .. note:: Merging Clusters.
    Merging clusters this way will merge them into a single cluster. It will reduce the overall number of clusters, and will affect downstream analysis.
 
-.. note:: Unnassigned Points
+.. note::
    Certain clustering algorithms, like HDBSCAN, will leave some points as unassigned. These are treated as cluster "-1". Points in this "-1 cluster" will not be merged into other clusters during the merge step.
 
 
@@ -574,7 +574,7 @@ To create a new cluster:
 The plot will be re-rendered, and the new cluster will be shown. This cluster can be recoloured, as with any cluster.
 
 
-.. warning:: Unnassigned Points
+.. warning:: 
    Certain clustering algorithms, like HDBSCAN, will leave some points as unassigned, and stored in the "-1" cluster. The can either be included or excluded from the new cluster, by selecting either the "Include -1" or "Exclude -1" button.
 
 Resetting
@@ -646,7 +646,7 @@ You can verify that the modifications to the clusters, performed interactively, 
    gui.interactive_latent_plot(ps=ps_loaded,ratio_to_be_shown=1.0,n_colours=30)
 
 
-.. note:: Clusters with HDBSCAN
+.. tip ::
    The tutorial notebook used ``ps_gmm`` to demonstrate the visualisation capabilities of SIGMA, but this functionality will also work for clusters created with HDBSCAN, if the ``ps_hdb`` variable is used as the argument for any of the visualisation functions.
 
 
