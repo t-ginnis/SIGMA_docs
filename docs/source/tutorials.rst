@@ -763,7 +763,7 @@ If, based on the clustering analysis, it is clear that certain clusters already 
 
 .. code-block:: python
 
-weights_guessed, components_guessed = ps_gmm.get_unmixed_spectra_profile_init_guess(clusters_to_be_calculated='All', 
+   weights_guessed, components_guessed = ps_gmm.get_unmixed_spectra_profile_init_guess(clusters_to_be_calculated='All', 
                                                  n_components=3,
                                                  normalised=False, 
                                                  method='NMF', 
