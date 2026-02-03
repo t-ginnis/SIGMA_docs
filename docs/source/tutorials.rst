@@ -797,5 +797,17 @@ The spatial distribution of the clusters can be visualised using the following c
 
 Components can be selected from the drop down menu to plot their distribution spatially
 
+STEM Tutorial
+------------------------
+(S)TEM datasets can be analysed in the same way, but must be loaded as a ``TEMDataset`` by running the following cell:
+
+.. code-block:: python
+
+   path = "tem_example.bcf" #replace this with path to your tem dataset
+   tem = TEMDataset(path)
+
+
+
+
 
 
